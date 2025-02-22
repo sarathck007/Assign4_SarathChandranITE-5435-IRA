@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Workshop Registration</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div class="header">
+		<div class="header-text">
+			<span>Workshop Registration</span> <span class="more-actions">More
+				Actions ▼</span>
+		</div>
+	</div>
+
+	<!-- Registration Form Section -->
+	<div th:if="${!success}">
+		<div class="main-content">
+			<div class="registration-note">
+				<strong>Register now while seats are available!</strong>
+			</div>
+
+			<div class="form-wrapper">
+				<form action="#" th:action="@{/submit}"
+					th:object="${workshopRegistration}" method="post">
+					<div class="form-container">
+						<div class="left-section">
+							<div class="form-group">
+								<label class="required">First Name</label> <input type="text"
+									th:field="*{firstName}"> <span
+									th:if="${#fields.hasErrors('firstName')}"
+									th:errors="*{firstName}" class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="required">Last Name</label> <input type="text"
+									th:field="*{lastName}"> <span
+									th:if="${#fields.hasErrors('lastName')}"
+									th:errors="*{lastName}" class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="required">Company/Institution</label> <input
+									type="text" th:field="*{companyInstitution}"> <span
+									th:if="${#fields.hasErrors('companyInstitution')}"
+									th:errors="*{companyInstitution}" class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="required">Address</label>
+								<textarea th:field="*{address}"></textarea>
+								<span th:if="${#fields.hasErrors('address')}"
+									th:errors="*{address}" class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label>City</label> <input type="text" th:field="*{city}">
+							</div>
+
+							<div class="form-group">
+								<label>State/Province/Region</label> <select
+									th:field="*{stateProvince}">
+									<option value="">-Select-</option>
+									<option value="AL">Alabama</option>
+									<option value="AK">Alaska</option>
+									<option value="AZ">Arizona</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label>Country</label> <select th:field="*{country}">
+									<option value="">-Select-</option>
+									<option value="US">United States</option>
+									<option value="CA">Canada</option>
+									<option value="UK">United Kingdom</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label class="required">Email</label> <input type="email"
+									th:field="*{email}"> <span
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+									class="error"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="required">Phone Number</label> <input type="text"
+									th:field="*{phoneNumber}" placeholder="(XXX)XXX-XXXX">
+								<span th:if="${#fields.hasErrors('phoneNumber')}"
+									th:errors="*{phoneNumber}" class="error"></span>
+							</div>
+						</div>
+
+						<div class="right-section">
+							<div class="form-group">
+								<label>Lunch</label>
+								<div class="form-group">
+									<label>Meal Preference</label> <select
+										th:field="*{mealPreference}">
+										<option value="Vegetarian">Vegetarian</option>
+										<option value="Non-Vegetarian">Non-Vegetarian</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="payment-details">
+								<h4>Payment Details</h4>
+								<div class="form-group">
+									<label>Payment Mode</label>
+									<div class="payment-mode">
+										<input type="radio" th:field="*{paymentMode}" value="Cash"
+											id="cash"> <label for="cash">Cash</label> <input
+											type="radio" th:field="*{paymentMode}" value="Cheque"
+											id="cheque"> <label for="cheque">Cheque</label> <input
+											type="radio" th:field="*{paymentMode}" value="DD" id="dd">
+										<label for="dd">Demand Draft</label>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label>DD/Cheque No.</label> <input type="text"
+										th:field="*{ddChequeNo}">
+								</div>
+
+								<div class="form-group">
+									<label>Drawn On (Bank Name)</label> <input type="text"
+										th:field="*{bankName}">
+								</div>
+
+								<div class="form-group">
+									<label>Payable at</label> <input type="text"
+										th:field="*{payableAt}">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="button-group">
+						<button type="reset" class="button reset-btn">Reset</button>
+						<button type="submit" class="button submit-btn">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Success Section -->
+	<div class="success-container" th:if="${success}">
+		<h2 class="success-message">Registration Successful!</h2>
+
+		<h3>Registration Details:</h3>
+		<table>
+			<tr>
+				<th>First Name</th>
+				<td th:text="${workshopRegistration.firstName}"></td>
+			</tr>
+			<tr>
+				<th>Last Name</th>
+				<td th:text="${workshopRegistration.lastName}"></td>
+			</tr>
+			<tr>
+				<th>Company/Institution</th>
+				<td th:text="${workshopRegistration.companyInstitution}"></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td th:text="${workshopRegistration.email}"></td>
+			</tr>
+			<tr>
+				<th>Phone Number</th>
+				<td th:text="${workshopRegistration.phoneNumber}"></td>
+			</tr>
+			<tr>
+				<th>Meal Preference</th>
+				<td th:text="${workshopRegistration.mealPreference}"></td>
+			</tr>
+			<tr>
+				<th>Payment Mode</th>
+				<td th:text="${workshopRegistration.paymentMode}"></td>
+			</tr>
+		</table>
+
+		<p>
+			<a href="/" class="register-another">Register Another Person</a>
+		</p>
+	</div>
+</body>
+</html>
